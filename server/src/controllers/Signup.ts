@@ -1,8 +1,10 @@
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 const prisma = new PrismaClient();
 import {Request,Response,NextFunction} from "express";
 import { Signuptype } from "../Types/type";
+const jwtpass=process.env.jwt_pass;
 export const Signup=async(req:Request,res:Response, next: NextFunction) : Promise<any>=>{
      const {email,password,name}:Signuptype=req.body;
      //console.log(email+password+name);
@@ -13,9 +15,15 @@ export const Signup=async(req:Request,res:Response, next: NextFunction) : Promis
                     email,
                     password:pass,
                     name
+               },
+               select:{
+                    email:true,
+                    name:true,
+                    id:true
                }
           });
-          return res.json({'ans':result});
+          const token= jwt.sign({email,id:result.id},pass);
+          return res.json({'result':result,token});
      }
      catch(err)
      {
