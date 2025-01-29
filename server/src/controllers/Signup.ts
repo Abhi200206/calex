@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 const prisma = new PrismaClient();
 import {Request,Response,NextFunction} from "express";
 import { Signuptype } from "../Types/type";
-const jwtpass=process.env.jwt_pass;
+const jwtpass=process.env.jwt_pass|| "w";
 export const Signup=async(req:Request,res:Response, next: NextFunction) : Promise<any>=>{
      const {email,password,name}:Signuptype=req.body;
      //console.log(email+password+name);
@@ -22,7 +22,7 @@ export const Signup=async(req:Request,res:Response, next: NextFunction) : Promis
                     id:true
                }
           });
-          const token= jwt.sign({email,id:result.id},pass);
+          const token= jwt.sign({email,id:result.id},jwtpass);
           return res.json({'result':result,token});
      }
      catch(err)
