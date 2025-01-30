@@ -13,20 +13,22 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model users{
-  id String @id @default(uuid())
-  email    String  @unique
+model users {
+  id       String    @id @default(uuid())
+  email    String    @unique
   password String
   name     String
   expense  expense[]
 }
 
-model expense{
-  id String @id @default(uuid())
-  amount BigInt 
-  date DateTime 
-  month String
-  label String
+model expense {
+  id     String   @id @default(uuid())
+  amount Float
+  date   DateTime
+  month  String
+  label  String
+  To     String   @default("Anonymous")
   userid String
-  users users @relation(fields: [userid], references: [id])
+  year   Int
+  users  users    @relation(fields: [userid], references: [id])
 }

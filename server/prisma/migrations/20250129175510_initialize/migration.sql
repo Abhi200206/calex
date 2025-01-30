@@ -11,11 +11,13 @@ CREATE TABLE "users" (
 -- CreateTable
 CREATE TABLE "expense" (
     "id" TEXT NOT NULL,
-    "amount" BIGINT NOT NULL,
+    "amount" DOUBLE PRECISION NOT NULL,
     "date" TIMESTAMP(3) NOT NULL,
     "month" TEXT NOT NULL,
     "label" TEXT NOT NULL,
+    "To" TEXT NOT NULL DEFAULT 'Anonymous',
     "userid" TEXT NOT NULL,
+    "year" INTEGER NOT NULL,
 
     CONSTRAINT "expense_pkey" PRIMARY KEY ("id")
 );

@@ -1,5 +1,10 @@
 import express from "express";
+import { middleware } from "../middlewares/middleware";
+import { Addexpenses, Getexpenses, Getlatest, Getspecificexpense, Getstats, Getstatslatest } from "../controllers/expenses";
 export const Exprouter=express.Router();
-Exprouter.post('/',(req,res)=>{
-    res.send("from Exp router");
-})
+Exprouter.get('/getexpenses',middleware,Getexpenses);
+Exprouter.post('/addexpense',middleware,Addexpenses);
+Exprouter.get('/getspecific',middleware,Getspecificexpense);
+Exprouter.get('/getlatest',middleware,Getlatest);
+Exprouter.get('/getstats',middleware,Getstats);
+Exprouter.get('/getstatslatest',middleware,Getstatslatest);

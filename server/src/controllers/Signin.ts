@@ -18,9 +18,13 @@ export const Signin=async(req:Request,res:Response, next: NextFunction) : Promis
             }
         })|| {id:"1233",password:"hi"};
         const ans:boolean=await bcrypt.compare(password,result.password);
-        result={...result,password:"are u serious ? you are checking passwords Too!!!"};
-        const token= jwt.sign({email,id:result.id},jwtpass);
-        return res.json({'result':result,token});
+        if(ans)
+        {
+            result={...result,password:"are u serious ? you are checking passwords Too!!!"};
+            const token= jwt.sign({email,id:result.id},jwtpass);
+            return res.json({'result':result,token});
+        }
+        return res.status(404).json({error:"error!!! incorrect password"});
     }
     catch(err)
     {
