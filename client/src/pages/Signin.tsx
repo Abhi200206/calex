@@ -1,12 +1,20 @@
-import { useState } from "react"
+import { useState,useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import axios from "axios"
+import { check } from "../check"
 import { Loading } from "../components/Loading"
 export const Signin = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState<boolean>(false);
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
+     useEffect(() => {
+            check().then((res) => {
+                if (res) {
+                    navigate('/home');
+                }
+            });
+        }, []);
     const submit = async () => {
         setLoading(true);
         try {
@@ -29,7 +37,7 @@ export const Signin = () => {
         }
     };
     return (
-        <div className="flex justify-center">
+        <div className="flex justify-center items-center h-screen">
             <div >
                 <div className="border-[1px] p-2 rounded ">
                     <p className="text-center my-2 text-2xl font-bold">Signin</p>
@@ -48,7 +56,7 @@ export const Signin = () => {
     )
 }
 
-function Aster({ value }: { value: string }) {
+export function Aster({ value }: { value: string }) {
     return (
         <div className="flex">
             <div> <p className="text-sm my-1">{value}: </p></div>

@@ -68,11 +68,14 @@ export const Getlatest = async (req: any, res: Response) => {
     try {
         const userid = req.userid;
         let result = await prisma.expense.findMany({
-            orderBy:{
-                date:'desc'
+            where:{
+                userid
+            },
+            orderBy: {
+                date: 'desc'
             }
         });
-        res.status(200).json({ result:result[0] });
+        res.status(200).json({ result: result[0] });
     }
     catch (err) {
         console.log(err);
@@ -80,20 +83,21 @@ export const Getlatest = async (req: any, res: Response) => {
     }
 }
 
-export const Getstatslatest=async(req:any,res:Response)=>{
-    try{
-        const userid=req.userid;
-        let { year, month }: { year: number, month: string } = req.body;
-        const result=await prisma.expense.aggregate({
-            _sum:{
-                amount:true
+export const Getstatslatest = async (req: any, res: Response) => {
+    try {
+        const userid = req.userid;
+        let { year, month }: { year: number, month: number } = req.body;
+        let curr_month = monthsarr[month];
+        const result = await prisma.expense.aggregate({
+            _sum: {
+                amount: true
             },
-            _count:{
-                id:true
+            _count: {
+                id: true
             },
-            where:{
+            where: {
                 userid,
-                month,
+                month: curr_month,
                 year
             }
         });
@@ -105,17 +109,17 @@ export const Getstatslatest=async(req:any,res:Response)=>{
     }
 }
 
-export const Getstats=async(req:any,res:Response)=>{
-    try{
-        const userid=req.userid;
-        const result=await prisma.expense.aggregate({
-            _sum:{
-                amount:true
+export const Getstats = async (req: any, res: Response) => {
+    try {
+        const userid = req.userid;
+        const result = await prisma.expense.aggregate({
+            _sum: {
+                amount: true
             },
-            _count:{
-                id:true
+            _count: {
+                id: true
             },
-            where:{
+            where: {
                 userid
             }
         });
@@ -125,4 +129,64 @@ export const Getstats=async(req:any,res:Response)=>{
         console.log(err);
         res.status(404).send("error at server!");
     }
+}
+
+export const Getgroupdata = async (req: any, res: Response) => {
+    try {
+        const userid=req.userid;
+        const result = await prisma.expense.groupBy({
+            by: ['label'],
+            _sum: {
+                amount: true,
+            },
+            _count: {
+                id: true,
+            },
+            orderBy: {
+                label: 'asc',
+            },
+            where:{
+                userid
+            }
+        });
+
+         res.status(200).json({ result });
+    }
+    catch (err) {
+        console.log(err);
+         res.status(404).send("error at server!");
+    }
+
+}
+
+export const Getmonthgroupdata = async (req: any, res: Response) => {
+    try {
+        const userid=req.userid;
+        const {month,year}=req.body;
+        const curr_month=monthsarr[month];
+        const result = await prisma.expense.groupBy({
+            by: ['label'],
+            _sum: {
+                amount: true,
+            },
+            _count: {
+                id: true,
+            },
+            orderBy: {
+                label: 'asc',
+            },
+            where:{
+                userid,
+                month:curr_month,
+                year
+            }
+        });
+
+         res.status(200).json({ result });
+    }
+    catch (err) {
+        console.log(err);
+         res.status(404).send("error at server!");
+    }
+
 }

@@ -10,8 +10,8 @@ export const Card = ({ obj }: {
     }
 }) => {
     return (
-        <div className="rounded p-4 border-[1px] text-center mx-4">
-            <p>Total amount: {obj._sum.amount == null ?"N/A":obj._sum.amount}</p>
+        <div className="rounded font-sans p-4 border-[1px] text-center mx-4">
+            <p>Total amount: {obj._sum.amount == null ?"0":obj._sum.amount}</p>
             <p>Total transactions: {obj._count.id}</p>
         </div>
     )

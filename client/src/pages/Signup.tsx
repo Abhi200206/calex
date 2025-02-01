@@ -1,6 +1,7 @@
-import { useState } from "react"
+import { useState,useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import axios from "axios"
+import axios from "axios"   
+import { check } from "../check"
 import { Loading } from "../components/Loading"
 export const Signup = () => {
     const navigate = useNavigate();
@@ -8,6 +9,13 @@ export const Signup = () => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [name, setName] = useState<string>("");
+     useEffect(() => {
+                check().then((res) => {
+                    if (res) {
+                        navigate('/home');
+                    }
+                });
+            }, []);
     const submit = async () => {
         setLoading(true);
         try {
@@ -31,7 +39,7 @@ export const Signup = () => {
         }
     };
     return (
-        <div className="flex justify-center">
+        <div className="flex justify-center items-center h-screen">
             <div >
                 <div className="border-[1px] p-2 rounded ">
                     <p className="text-center my-2 text-2xl font-bold">Signup</p>
