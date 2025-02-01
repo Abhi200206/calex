@@ -26,8 +26,9 @@ export const Analyze = () => {
         setVal(false);
         setLoading(true);
         const y = parseInt(year);
+        const num=parseInt(month);
         let res = await axios.post(`http://localhost:3000/api/expense/getmonthgroup`, {
-            month: month - 1,
+            month: num - 1,
             year: y
         }, {
             headers: {
