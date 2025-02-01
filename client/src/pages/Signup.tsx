@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"
 import axios from "axios"   
 import { check } from "../check"
 import { Loading } from "../components/Loading"
+import { url } from "./Signin"
 export const Signup = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState<boolean>(false);
@@ -19,7 +20,7 @@ export const Signup = () => {
     const submit = async () => {
         setLoading(true);
         try {
-            const data = await axios.post(`http://localhost:3000/api/user/signup`, {
+            const data = await axios.post(`${url}/api/user/signup`, {
                 email,
                 password,
                 name

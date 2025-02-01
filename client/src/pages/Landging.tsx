@@ -1,7 +1,16 @@
 import { useNavigate } from 'react-router-dom';
-
+import { check } from '../check';
+import { useEffect } from 'react';
 const LandingPage = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+                  check().then((res) => {
+                      if (res) {
+                          navigate('/home');
+                      }
+                  });
+              }, []);
 
   const handleSignIn = () => {
     navigate('/signin');

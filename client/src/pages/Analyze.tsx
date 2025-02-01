@@ -5,6 +5,7 @@ import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import { Loading } from "../components/Loading";
 import { Slidermonth } from "../components/Slider"
+import { url } from "./Signin"
 export const Analyze = () => {
     const [expenses, setExpenses] = useState([]);
     const [flag, setFalg] = useState(false);
@@ -15,7 +16,7 @@ export const Analyze = () => {
     const [val, setVal] = useState<boolean>(true);
     const navigate = useNavigate();
     const getData = async () => {
-        let res = await axios.get(`http://localhost:3000/api/expense/getgroup`, {
+        let res = await axios.get(`${url}/api/expense/getgroup`, {
             headers: {
                 "authorization": localStorage.getItem("token")
             }
@@ -27,7 +28,7 @@ export const Analyze = () => {
         setLoading(true);
         const y = parseInt(year);
         const num=parseInt(month);
-        let res = await axios.post(`http://localhost:3000/api/expense/getmonthgroup`, {
+        let res = await axios.post(`${url}/api/expense/getmonthgroup`, {
             month: num - 1,
             year: y
         }, {

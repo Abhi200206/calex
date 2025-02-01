@@ -1,7 +1,8 @@
 import axios from "axios";
+import { url } from "./pages/Signin";
 export const check = async () => {
     try{
-        await axios.get(`http://localhost:3000/api/user/me`, {
+        await axios.get(`${url}/api/user/me`, {
             headers: {
                 "authorization": localStorage.getItem("token")
             }

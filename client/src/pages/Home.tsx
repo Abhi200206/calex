@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Card } from "../components/Card";
 import { Expense } from "../components/Expense";
 import { Loading } from "../components/Loading";
+import { url } from "./Signin";
 export const Home = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
@@ -26,7 +27,7 @@ export const Home = () => {
     });
     const [latestobj, setLatestobj] = useState<any>({});
     const getdel = async () => {
-        let res = await axios.get(`http://localhost:3000/api/expense/getstats`, {
+        let res = await axios.get(`${url}/api/expense/getstats`, {
             headers: {
                 "authorization": localStorage.getItem("token")
             }
@@ -38,7 +39,7 @@ export const Home = () => {
         const month = date.getMonth();
 
         const year = date.getFullYear();
-        let res = await axios.post(`http://localhost:3000/api/expense/getstatslatest`, {
+        let res = await axios.post(`${url}/api/expense/getstatslatest`, {
             month,
             year
         }, {
@@ -49,7 +50,7 @@ export const Home = () => {
         setMonobj(res.data);
     }
     const getlatDet = async () => {
-        let res = await axios.get(`http://localhost:3000/api/expense/getlatest`, {
+        let res = await axios.get(`${url}/api/expense/getlatest`, {
             headers: {
                 "authorization": localStorage.getItem("token")
             }
@@ -102,7 +103,7 @@ export const Home = () => {
                         </div>
                         <div>
                             <p className="my-2 font-black font-sans">Last Transaction:</p>
-                            <Expense obj={latestobj} />
+                            {latestobj?<Expense obj={latestobj} />:"NA"}
                         </div>
                     </div>
                 </div>

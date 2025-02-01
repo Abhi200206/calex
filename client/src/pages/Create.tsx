@@ -1,4 +1,4 @@
-import { Aster } from "./Signin"
+import { Aster, url } from "./Signin"
 import { check } from "../check"
 import axios from "axios"
 import { useEffect, useState } from "react"
@@ -20,7 +20,7 @@ export const Create = () => {
     const send = async () => {
         try {
             let amt = parseFloat(amount);
-            let res = await axios.post(`http://localhost:3000/api/expense/addexpense`, {
+            let res = await axios.post(`${url}/api/expense/addexpense`, {
                 amount: amt,
                 To,
                 label

@@ -3,11 +3,12 @@ import axios from "axios";
 import { check } from "../check";
 import { Expense } from "../components/Expense";
 import { useNavigate } from "react-router-dom";
+import { url } from "./Signin";
 export const View = () => {
     const navigate = useNavigate();
     const [arr, setArr] = useState<any[]>([]);
     const get = async () => {
-        let res = await axios.get(`http://localhost:3000/api/expense/getexpenses`, {
+        let res = await axios.get(`${url}/api/expense/getexpenses`, {
             headers: {
                 "authorization": localStorage.getItem("token")
             }

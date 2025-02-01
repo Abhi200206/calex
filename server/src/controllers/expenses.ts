@@ -4,10 +4,10 @@ const prisma = new PrismaClient();
 let monthsarr = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 export const Getexpenses = async (req: any, res: Response) => {
     try {
-        const { id }: { id: string } = req.userid || "---";
+        const userid = req.userid ;
         const result = await prisma.expense.findMany({
             where: {
-                userid: id
+                userid
             }
         });
         res.status(200).json({ result });
