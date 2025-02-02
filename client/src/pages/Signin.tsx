@@ -25,7 +25,7 @@ export const Signin = () => {
             });
             if (data.data.result) {
                 localStorage.setItem('token', data.data.token);
-                alert('signup successfull');
+                alert('signin successfull');
                 setLoading(false);
                 navigate('/home');
             }

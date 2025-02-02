@@ -64,7 +64,7 @@ const ExpensePieChart: React.FC<ExpensePieChartProps> = ({ groupedExpenses }) =>
 
   return (
     <div className='w-[300px] h-[300px]'>
-      <div className='font-sans font-black'><p>Expense Distribution by Label</p></div>
+      <div className='font-sans font-black mb-4 ml-8'><p>Expense Distribution by Label</p></div>
       <Pie data={chartData} options={options} width={10} height={10} />
     </div>
   );

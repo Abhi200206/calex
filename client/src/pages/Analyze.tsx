@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { Aster } from "../pages/Signin"
 import ExpensePieChart from "../components/Chart"
 import { check } from "../check"
 import axios from "axios"
@@ -27,7 +28,7 @@ export const Analyze = () => {
         setVal(false);
         setLoading(true);
         const y = parseInt(year);
-        const num=parseInt(month);
+        const num = parseInt(month);
         let res = await axios.post(`${url}/api/expense/getmonthgroup`, {
             month: num - 1,
             year: y
@@ -59,26 +60,31 @@ export const Analyze = () => {
             <div className="flex justify-center my-10">
                 {loading ? <Loading /> : <ExpensePieChart groupedExpenses={val ? expenses : monexpenses} />}
             </div>
-            <div className="text-center ">
-                <p>select below month and year to get data</p>
-                <p></p>
-                <div className="">
-                    <div onClick={() => {
-                        setFalg(true);
-                    }} className="my-1">
-                        <div>
-                            <input className="p-2 rounded border-[1px]" value={month} />
-                            <p className="text-slate-500 cursor-pointer">select</p>
-                        </div>
+            <div className="flex justify-center text-center ">
+                <div>
+                    <p className="font-bold font-sans text-slate-800">select below month and year to get data</p>
+                    <p></p>
+                    <div className="">
 
+                        <div onClick={() => {
+                            setFalg(true);
+                        }} className="my-1">
+                            <div>
+                                <Aster value="month" />
+                                <input className="p-2 rounded border-[1px]" value={month} />
+                                <p className="text-slate-500 cursor-pointer">select</p>
+                            </div>
+
+                        </div>
+                        {flag && <Slidermonth cb1={setFalg} cb={setMonth} />}
+                        <Aster value="year" />
+                        <input className="m-2 border-[1px] p-2 rounded" onChange={(e: {
+                            target: {
+                                value: any
+                            }
+                        }) => setYear(e.target.value)} type="number" placeholder="year" />
+                        <div onClick={getDatamonth} className="m-2 border-[1px] p-2 rounded cursor-pointer bg-black text-white hover:bg-white hover:text-black" ><p>GET</p></div>
                     </div>
-                    {flag && <Slidermonth cb1={setFalg} cb={setMonth} />}
-                    <input className="m-2 border-[1px] p-2 rounded" onChange={(e: {
-                        target: {
-                            value: any
-                        }
-                    }) => setYear(e.target.value)} type="number" placeholder="year" />
-                    <div onClick={getDatamonth} className="m-2 border-[1px] p-2 rounded cursor-pointer bg-black text-white hover:bg-white hover:text-black" ><p>GET</p></div>
                 </div>
             </div>
         </div>

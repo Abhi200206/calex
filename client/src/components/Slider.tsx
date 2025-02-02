@@ -34,7 +34,7 @@ function Input({value,cb,cb1}:{value:string|number,cb:any,cb1:any})
         <div onClick={()=>{
             cb(value);
             cb1(false);
-        }} className="p-2 cursor-pointer hover:bg-slate-200">
+        }} className="p-2 rounded cursor-pointer bg-slate-50 hover:bg-slate-200">
             <p>{value}</p>
         </div>
     )
