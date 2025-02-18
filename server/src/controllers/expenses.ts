@@ -8,6 +8,9 @@ export const Getexpenses = async (req: any, res: Response) => {
         const result = await prisma.expense.findMany({
             where: {
                 userid
+            },
+            orderBy: {
+                date: 'desc'
             }
         });
         res.status(200).json({ result });
