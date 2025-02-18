@@ -6,6 +6,7 @@ export const Slider=({cb,cb1}:{cb:any,cb1:any})=>{
             <Input cb1={cb1} value="infotatinment" cb={cb}/>
             <Input cb1={cb1} value="shopping" cb={cb}/>
             <Input cb1={cb1} value="utilities" cb={cb}/>
+            <Input cb1={cb1} value="Others" cb={cb}/>
         </div>
     )
 }
