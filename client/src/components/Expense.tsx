@@ -1,32 +1,29 @@
 export const Expense = ({ obj }: { obj: any }) => {
     const currdate = obj.date ? new Date(obj.date).toLocaleDateString('en-US') : 'Invalid Date';
-   if(obj.To&&obj.To.length>30)
-   {
-    obj.To=obj.To.slice(0,18)+"...";
-   }
+    const truncatedTo = obj.To && obj.To.length > 30 ? obj.To.slice(0, 18) + "..." : obj.To;
+
     return (
-        <div className="rounded border-[1px] p-2 m-2">
-            <div className="flex font-sans font-semibold text-slate-500 justify-between my-2">
-                <div className="flex gap-2 mr-2">
-                    <p className="text-black">Date: </p>
+        <div className="bg-white shadow-md rounded-xl border border-gray-200 p-4 m-2 max-w-md">
+            <div className="flex justify-between text-gray-600 font-medium mb-2">
+                <div className="flex gap-2">
+                    <p className="text-gray-800 font-semibold">Date:</p>
                     <p>{currdate}</p>
                 </div>
-                <div className="flex gap-2 ml-2">
-                    <p className="text-black">Label: </p>
+                <div className="flex gap-2">
+                    <p className="text-gray-800 font-semibold">Label:</p>
                     <p>{obj.label}</p>
                 </div>
             </div>
-            <div className="font-sans font-semibold text-slate-500">
+            <div className="text-gray-600 font-medium space-y-1">
                 <div className="flex gap-2">
-                    <p className="text-black">To: </p>
-                    <p>{obj.To}</p>
+                    <p className="text-gray-800 font-semibold">To:</p>
+                    <p>{truncatedTo}</p>
                 </div>
-                <div className="flex gap-2"> 
-                    <p className="text-black">Amount:  </p>
-                    <p>{obj.amount} /-</p>
-                    </div>
+                <div className="flex gap-2">
+                    <p className="text-gray-800 font-semibold">Amount:</p>
+                    <p className="text-green-600 font-bold">₹{obj.amount}</p>
+                </div>
             </div>
-           
         </div>
     );
 };
